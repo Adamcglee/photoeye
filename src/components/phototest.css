@@ -1,0 +1,32 @@
+.testContainer {
+    display: flex;
+
+}
+
+.photographerInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+p {
+    font-size: 14px;
+    margin: 0;
+}
+
+img{
+    max-height: 600px;
+    max-width: 600px;
+}
+
+.imagedata {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.testinputs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
