@@ -216,9 +216,9 @@ class PhotoTest extends Component {
   };
 
   render() {
-    console.log(this.state.fstops.length)
-    console.log(this.state.shutterspeeds.length)
-    console.log(this.state.isos.length)
+    console.log("Fstop: ", this.state.fstops.length)
+    console.log("Shutterspeed: ", this.state.shutterspeeds.length)
+    console.log("ISO: ", this.state.isos.length)
     return (
       <div className="testContainer">
         <div className="image">
