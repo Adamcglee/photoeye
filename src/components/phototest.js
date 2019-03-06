@@ -7,6 +7,7 @@ class PhotoTest extends Component {
     super(props);
     this.state = {
       photos: [],
+      difficulty: "easy",
       imageURL: "",
       htmlURL: "",
       photographer: "",
@@ -23,10 +24,12 @@ class PhotoTest extends Component {
         1.2,
         1.4,
         1.6,
+        1.7,
         1.8,
         2.0,
         2.2,
         2.4,
+        2.5,
         2.8,
         3.2,
         3.3,
@@ -44,7 +47,6 @@ class PhotoTest extends Component {
         9.5,
         10,
         11,
-        11,
         13,
         14,
         16,
@@ -58,7 +60,7 @@ class PhotoTest extends Component {
         32,
         36,
         38,
-        42,
+        40,
         45,
         50,
         57,
@@ -163,7 +165,8 @@ class PhotoTest extends Component {
         12500
       ],
       isCorrect: false,
-      showAnswer: false
+      showAnswer: false,
+      difficultyfstops: []
     };
   }
 
@@ -215,10 +218,44 @@ class PhotoTest extends Component {
       .catch(err => console.log(err));
   };
 
+  fstopChange = e => {
+    this.setState({ selectedfstop: e.target.value });
+  };
+
+  difficultyChange = e => {
+    this.setState({ difficulty: e.target.value }, () => this.setDifficultyRange());
+  };
+
+  setDifficultyRange = () => {
+    const newfstops = [];
+    if (this.state.difficulty === "easy") {
+      for (let i = 0; i < this.state.fstops.length - 1; i += 15) {
+        console.log("set to easy");
+        newfstops.push(
+          `${this.state.fstops[i]} - ${this.state.fstops[i + 14]}`
+        );
+      }
+    } else if (this.state.difficulty === "medium") {
+      console.log("set to medium");
+      for (let i = 0; i < this.state.fstops.length - 4; i += 9) {
+        newfstops.push(`${this.state.fstops[i]} - ${this.state.fstops[i + 8]}`);
+      }
+    } else if (this.state.difficulty === "hard"){
+      for (let i = 0; i < this.state.fstops.length - 1; i += 3) {
+        console.log("set to hard");
+        newfstops.push(`${this.state.fstops[i]} - ${this.state.fstops[i + 2]}`);
+      }
+    }
+    console.log(newfstops)
+    this.setState({ difficultyfstops: newfstops });
+  };
+
+  componentDidMount() {
+    this.setDifficultyRange();
+  }
+
   render() {
-    console.log("Fstop: ", this.state.fstops.length)
-    console.log("Shutterspeed: ", this.state.shutterspeeds.length)
-    console.log("ISO: ", this.state.isos.length)
+    console.log("Difficulty: ", this.state.difficulty);
     return (
       <div className="testContainer">
         <div className="image">
@@ -235,16 +272,33 @@ class PhotoTest extends Component {
           <p>Shutter Speed: {this.state.shutterspeed}</p>
           <p>Aperture: {this.state.aperture}</p>
           <p>ISO: {this.state.iso}</p>
+          <div className="difficultydropdown">
+            Difficulty
+            <select
+              value={this.state.difficulty}
+              onChange={this.difficultyChange}
+            >
+              <option key={"easy"} value={"easy"}>
+                Easy
+              </option>
+              <option key={"medium"} value={"medium"}>
+                Medium
+              </option>
+              <option key={"hard"} value={"hard"}>
+                Hard
+              </option>
+            </select>
+          </div>
           <br />
           <div className="aperturedropdown">
             f-stop
             <select
               value={this.state.selectedfstop}
-              onChange={e => this.setState({ selectedfstop: e.target.value })}
+              onChange={this.fstopChange}
             >
-              {this.state.fstops.map(fstop => (
-                <option key={fstop} value={fstop}>
-                  {fstop}
+              {this.state.difficultyfstops.map(fstoprange => (
+                <option key={fstoprange} value={fstoprange}>
+                  {fstoprange}
                 </option>
               ))}
             </select>
