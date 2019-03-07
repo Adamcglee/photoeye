@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import * as math from 'mathjs'
 import "./phototest.css";
 
 class PhotoTest extends Component {
@@ -7,7 +8,7 @@ class PhotoTest extends Component {
     super(props);
     this.state = {
       photos: [],
-      difficulty: "easy",
+      difficulty: "null",
       imageURL: "",
       htmlURL: "",
       photographer: "",
@@ -114,7 +115,6 @@ class PhotoTest extends Component {
         "1/2",
         "1/0.3",
         "1/0.5",
-        "1/0.3",
         "1",
         "1.3",
         "1.5",
@@ -166,12 +166,28 @@ class PhotoTest extends Component {
       ],
       isCorrect: false,
       showAnswer: false,
-      difficultyfstops: []
+      difficultyfstops: [],
+      difficultyshutters: [],
+      difficultyisos: []
     };
   }
 
   checkAnswer = () => {
-    if (this.state.selectedfstop === this.state.aperture) {
+    const fstopAnsArr = this.state.selectedfstop.split(" ");
+    const shutterAnsArr = this.state.selectedshutter.split(" ");
+    const isoAnsArr = this.state.selectediso.split(" ");
+    console.log(fstopAnsArr);
+    console.log(Number(shutterAnsArr[0]));
+    console.log(shutterAnsArr[0]);
+    console.log(isoAnsArr);
+    if (
+      Number(this.state.aperture) >= Number(fstopAnsArr[0]) &&
+      Number(this.state.aperture) <= Number(fstopAnsArr[2]) &&
+      this.parseFractions(this.state.shutterspeed) >= this.parseFractions(shutterAnsArr[0]) &&
+      this.parseFractions(this.state.shutterspeed) <= this.parseFractions(shutterAnsArr[2]) &&
+      Number(this.state.iso) >= Number(isoAnsArr[0]) &&
+      Number(this.state.iso) <= Number(isoAnsArr[2])
+    ) {
       this.setState({ isCorrect: true });
       console.log("That's right!");
     } else {
@@ -179,6 +195,11 @@ class PhotoTest extends Component {
       console.log("Nope, try again!");
     }
   };
+
+  parseFractions(string) {
+    let converted = string.split('/');
+    return converted[0] / converted[1];
+  }
 
   photoCheck = () => {
     if (
@@ -222,32 +243,93 @@ class PhotoTest extends Component {
     this.setState({ selectedfstop: e.target.value });
   };
 
+  shutterChange = e => {
+    this.setState({ selectedshutter: e.target.value });
+  };
+
+  isoChange = e => {
+    this.setState({ selectediso: e.target.value });
+  };
+
   difficultyChange = e => {
-    this.setState({ difficulty: e.target.value }, () => this.setDifficultyRange());
+    this.setState({ difficulty: e.target.value }, () =>
+      this.setDifficultyRange()
+    );
   };
 
   setDifficultyRange = () => {
     const newfstops = [];
+    const newshutters = [];
+    const newisos = [];
     if (this.state.difficulty === "easy") {
+      // Easy Fstop Band
       for (let i = 0; i < this.state.fstops.length - 1; i += 15) {
-        console.log("set to easy");
         newfstops.push(
           `${this.state.fstops[i]} - ${this.state.fstops[i + 14]}`
         );
       }
+      newfstops.push(`${this.state.fstops[this.state.fstops.length - 1]}+`);
+      // Easy Shutterspeed Band
+      for (let i = 0; i < this.state.shutterspeeds.length - 2; i += 15) {
+        newshutters.push(
+          `${this.state.shutterspeeds[i]} - ${this.state.shutterspeeds[i + 14]}`
+        );
+      }
+      newshutters.push(
+        `${this.state.shutterspeeds[this.state.shutterspeeds.length - 2]}+`
+      );
+      // Easy Iso Band
+      for (let i = 0; i < this.state.isos.length - 1; i += 15) {
+        newisos.push(`${this.state.isos[i]} - ${this.state.isos[i + 14]}`);
+      }
+      newisos.push(`${this.state.isos[this.state.isos.length - 1]}+`);
     } else if (this.state.difficulty === "medium") {
-      console.log("set to medium");
+      // Medium Fstop Band
       for (let i = 0; i < this.state.fstops.length - 4; i += 9) {
         newfstops.push(`${this.state.fstops[i]} - ${this.state.fstops[i + 8]}`);
       }
-    } else if (this.state.difficulty === "hard"){
+      newfstops.push(`${this.state.fstops[this.state.fstops.length - 1]}+`);
+      // Medium Shutterspeed Band
+      for (let i = 0; i < this.state.shutterspeeds.length - 2; i += 10) {
+        newshutters.push(
+          `${this.state.shutterspeeds[i]} - ${this.state.shutterspeeds[i + 9]}`
+        );
+      }
+      newshutters.push(
+        `${this.state.shutterspeeds[this.state.shutterspeeds.length - 2]}+`
+      );
+      // Medium Iso Band
+      for (let i = 0; i < this.state.isos.length - 1; i += 10) {
+        newisos.push(`${this.state.isos[i]} - ${this.state.isos[i + 9]}`);
+      }
+      newisos.push(`${this.state.isos[this.state.isos.length - 1]}+`);
+    } else if (this.state.difficulty === "hard") {
+      // Hard Fstop Band
       for (let i = 0; i < this.state.fstops.length - 1; i += 3) {
-        console.log("set to hard");
         newfstops.push(`${this.state.fstops[i]} - ${this.state.fstops[i + 2]}`);
       }
+      newfstops.push(`${this.state.fstops[this.state.fstops.length - 1]}+`);
+      // Hard Shutterspeed Band
+      for (let i = 0; i < this.state.shutterspeeds.length - 2; i += 5) {
+        newshutters.push(
+          `${this.state.shutterspeeds[i]} - ${this.state.shutterspeeds[i + 4]}`
+        );
+      }
+      newshutters.push(
+        `${this.state.shutterspeeds[this.state.shutterspeeds.length - 2]}+`
+      );
+      // Hard Iso Band
+      for (let i = 0; i < this.state.isos.length - 1; i += 3) {
+        newisos.push(`${this.state.isos[i]} - ${this.state.isos[i + 2]}`);
+      }
+      newisos.push(`${this.state.isos[this.state.isos.length - 1]}+`);
     }
-    console.log(newfstops)
-    this.setState({ difficultyfstops: newfstops });
+    console.log(newfstops);
+    this.setState({
+      difficultyfstops: newfstops,
+      difficultyshutters: newshutters,
+      difficultyisos: newisos
+    });
   };
 
   componentDidMount() {
@@ -255,7 +337,7 @@ class PhotoTest extends Component {
   }
 
   render() {
-    console.log("Difficulty: ", this.state.difficulty);
+    console.log(typeof this.state.aperture);
     return (
       <div className="testContainer">
         <div className="image">
@@ -278,13 +360,16 @@ class PhotoTest extends Component {
               value={this.state.difficulty}
               onChange={this.difficultyChange}
             >
-              <option key={"easy"} value={"easy"}>
+            <option>
+                Please Choose
+              </option>
+              <option key="easy" value="easy">
                 Easy
               </option>
-              <option key={"medium"} value={"medium"}>
+              <option key="medium" value="medium">
                 Medium
               </option>
-              <option key={"hard"} value={"hard"}>
+              <option key="hard" value="hard">
                 Hard
               </option>
             </select>
@@ -303,32 +388,35 @@ class PhotoTest extends Component {
               ))}
             </select>
           </div>
+          <i class="fas fa-check"></i>
+          <i class="fas fa-times"></i>
           <div className="shutterropdown">
             shutter speed
             <select
               value={this.state.selectedshutter}
-              onChange={e => this.setState({ selectedshutter: e.target.value })}
+              onChange={this.shutterChange}
             >
-              {this.state.shutterspeeds.map(fstop => (
-                <option key={fstop} value={fstop}>
-                  {fstop}
+              {this.state.difficultyshutters.map(shutter => (
+                <option key={shutter} value={shutter}>
+                  {shutter}
                 </option>
               ))}
             </select>
           </div>
+          <i class="fas fa-check"></i>
+          <i class="fas fa-times"></i>
           <div className="isodropdown">
             iso
-            <select
-              value={this.state.selectediso}
-              onChange={e => this.setState({ selectediso: e.target.value })}
-            >
-              {this.state.isos.map(iso => (
+            <select value={this.state.selectediso} onChange={this.isoChange}>
+              {this.state.difficultyisos.map(iso => (
                 <option key={iso} value={iso}>
                   {iso}
                 </option>
               ))}
             </select>
           </div>
+          <i class="fas fa-check"></i>
+          <i class="fas fa-times"></i>
           <div>
             {this.state.isCorrect === false ? (
               <button onClick={this.checkAnswer}>Submit</button>
