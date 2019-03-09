@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import * as math from 'mathjs'
 import "./phototest.css";
 
 class PhotoTest extends Component {
@@ -19,6 +18,14 @@ class PhotoTest extends Component {
       selectedfstop: "",
       selectedshutter: "",
       selectediso: "",
+      showanswer: false,
+      fstopanswer: false,
+      shutteranswer: false,
+      isoanswer: false,
+      isCorrect: false,
+      difficultyfstops: [],
+      difficultyshutters: [],
+      difficultyisos: [],
       fstops: [
         1.0,
         1.1,
@@ -163,41 +170,68 @@ class PhotoTest extends Component {
         8000,
         10000,
         12500
-      ],
-      isCorrect: false,
-      showAnswer: false,
-      difficultyfstops: [],
-      difficultyshutters: [],
-      difficultyisos: []
+      ]
     };
   }
 
+  showAnswer = () => {
+    console.log("Fstop: ", this.state.aperture);
+    console.log("Shutterspeed: ", this.state.shutterspeed);
+    console.log("ISO: ", this.state.iso);
+  };
+
   checkAnswer = () => {
-    const fstopAnsArr = this.state.selectedfstop.split(" ");
-    const shutterAnsArr = this.state.selectedshutter.split(" ");
-    const isoAnsArr = this.state.selectediso.split(" ");
-    console.log(fstopAnsArr);
-    console.log(Number(shutterAnsArr[0]));
-    console.log(shutterAnsArr[0]);
-    console.log(isoAnsArr);
+    this.showAnswer();
+    this.checkfstop();
+    this.checkshutter();
+    this.checkiso();
     if (
-      Number(this.state.aperture) >= Number(fstopAnsArr[0]) &&
-      Number(this.state.aperture) <= Number(fstopAnsArr[2]) &&
-      this.parseFractions(this.state.shutterspeed) >= this.parseFractions(shutterAnsArr[0]) &&
-      this.parseFractions(this.state.shutterspeed) <= this.parseFractions(shutterAnsArr[2]) &&
-      Number(this.state.iso) >= Number(isoAnsArr[0]) &&
-      Number(this.state.iso) <= Number(isoAnsArr[2])
+      this.state.fstopanswer === true &&
+      this.state.shutteranswer === true &&
+      this.state.isoanswer === true
     ) {
       this.setState({ isCorrect: true });
       console.log("That's right!");
     } else {
-      this.setState({ showAnswer: true });
       console.log("Nope, try again!");
+    }
+    this.setState({ showanswer: true });
+  };
+
+  checkfstop = () => {
+    const fstopAnsArr = this.state.selectedfstop.split(" ");
+    if (
+      Number(this.state.aperture) >= Number(fstopAnsArr[0]) &&
+      Number(this.state.aperture) <= Number(fstopAnsArr[2])
+    ) {
+      this.setState({ fstopanswer: true });
+    }
+  };
+
+  checkshutter = () => {
+    const shutterAnsArr = this.state.selectedshutter.split(" ");
+    if (
+      this.parseFractions(this.state.shutterspeed) >=
+        this.parseFractions(shutterAnsArr[0]) &&
+      this.parseFractions(this.state.shutterspeed) <=
+        this.parseFractions(shutterAnsArr[2])
+    ) {
+      this.setState({ shutteranswer: true });
+    }
+  };
+
+  checkiso = () => {
+    const isoAnsArr = this.state.selectediso.split(" ");
+    if (
+      Number(this.state.iso) >= Number(isoAnsArr[0]) &&
+      Number(this.state.iso) <= Number(isoAnsArr[2])
+    ) {
+      this.setState({ isoanswer: true });
     }
   };
 
   parseFractions(string) {
-    let converted = string.split('/');
+    let converted = string.split("/");
     return converted[0] / converted[1];
   }
 
@@ -232,7 +266,8 @@ class PhotoTest extends Component {
           shutterspeed: res.data.exif.exposure_time,
           aperture: res.data.exif.aperture,
           iso: res.data.exif.iso,
-          isCorrect: false
+          isCorrect: false,
+          showanswer: false
         });
         this.photoCheck();
       })
@@ -324,7 +359,6 @@ class PhotoTest extends Component {
       }
       newisos.push(`${this.state.isos[this.state.isos.length - 1]}+`);
     }
-    console.log(newfstops);
     this.setState({
       difficultyfstops: newfstops,
       difficultyshutters: newshutters,
@@ -337,7 +371,9 @@ class PhotoTest extends Component {
   }
 
   render() {
-    console.log(typeof this.state.aperture);
+    console.log("Fstop: ", this.state.fstopanswer);
+    console.log("Shutterspeed: ", this.state.shutteranswer);
+    console.log("ISO: ", this.state.isoanswer);
     return (
       <div className="testContainer">
         <div className="image">
@@ -351,18 +387,13 @@ class PhotoTest extends Component {
             <p>Photographers URL: {this.state.htmlURL}</p>
           </div>
           <br />
-          <p>Shutter Speed: {this.state.shutterspeed}</p>
-          <p>Aperture: {this.state.aperture}</p>
-          <p>ISO: {this.state.iso}</p>
           <div className="difficultydropdown">
             Difficulty
             <select
               value={this.state.difficulty}
               onChange={this.difficultyChange}
             >
-            <option>
-                Please Choose
-              </option>
+              <option>Please Choose</option>
               <option key="easy" value="easy">
                 Easy
               </option>
@@ -388,8 +419,12 @@ class PhotoTest extends Component {
               ))}
             </select>
           </div>
-          <i class="fas fa-check"></i>
-          <i class="fas fa-times"></i>
+          {this.state.showanswer === false ? null : this.state.fstopanswer ===
+            true ? (
+            <i className="fas fa-check" />
+          ) : (
+            <i className="fas fa-times" />
+          )}
           <div className="shutterropdown">
             shutter speed
             <select
@@ -403,8 +438,12 @@ class PhotoTest extends Component {
               ))}
             </select>
           </div>
-          <i class="fas fa-check"></i>
-          <i class="fas fa-times"></i>
+          {this.state.showanswer === false ? null : this.state.shutteranswer ===
+            true ? (
+            <i className="fas fa-check" />
+          ) : (
+            <i className="fas fa-times" />
+          )}
           <div className="isodropdown">
             iso
             <select value={this.state.selectediso} onChange={this.isoChange}>
@@ -415,8 +454,12 @@ class PhotoTest extends Component {
               ))}
             </select>
           </div>
-          <i class="fas fa-check"></i>
-          <i class="fas fa-times"></i>
+          {this.state.showanswer === false ? null : this.state.isoanswer ===
+            true ? (
+            <i className="fas fa-check" />
+          ) : (
+            <i className="fas fa-times" />
+          )}
           <div>
             {this.state.isCorrect === false ? (
               <button onClick={this.checkAnswer}>Submit</button>

@@ -30,3 +30,11 @@ img{
     flex-direction: column;
     align-items: flex-start;
 }
+
+.fa-check {
+    color: #00e500;
+}
+
+.fa-times {
+    color: red;
+}
