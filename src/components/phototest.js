@@ -174,40 +174,47 @@ class PhotoTest extends Component {
     };
   }
 
+  // For testing purposes
   showAnswer = () => {
     console.log("Fstop: ", this.state.aperture);
     console.log("Shutterspeed: ", this.state.shutterspeed);
     console.log("ISO: ", this.state.iso);
   };
 
-  checkAnswer = () => {
+  // Check user guesses vs actual answers
+  checkAnswer = async() => {
     this.showAnswer();
-    this.checkfstop();
-    this.checkshutter();
-    this.checkiso();
+    await this.checkfstop();
+    await this.checkshutter();
+    await this.checkiso();
     if (
       this.state.fstopanswer === true &&
       this.state.shutteranswer === true &&
       this.state.isoanswer === true
     ) {
-      this.setState({ isCorrect: true });
-      console.log("That's right!");
+      this.setState({ isCorrect: true }, () => {
+        console.log("That's right!");
+      });
     } else {
       console.log("Nope, try again!");
     }
     this.setState({ showanswer: true });
   };
 
+  // Fstop specific check
   checkfstop = () => {
     const fstopAnsArr = this.state.selectedfstop.split(" ");
     if (
       Number(this.state.aperture) >= Number(fstopAnsArr[0]) &&
       Number(this.state.aperture) <= Number(fstopAnsArr[2])
     ) {
-      this.setState({ fstopanswer: true });
+      this.setState({ fstopanswer: true }, () => {
+        console.log("Fstop is correct");
+      });
     }
   };
 
+  // Shutterspeed specific check
   checkshutter = () => {
     const shutterAnsArr = this.state.selectedshutter.split(" ");
     if (
@@ -216,31 +223,34 @@ class PhotoTest extends Component {
       this.parseFractions(this.state.shutterspeed) <=
         this.parseFractions(shutterAnsArr[2])
     ) {
-      this.setState({ shutteranswer: true });
+      this.setState({ shutteranswer: true }, () => {
+        console.log("Shutterspeed is correct");
+      });
     }
   };
 
+  // Iso specific check
   checkiso = () => {
     const isoAnsArr = this.state.selectediso.split(" ");
     if (
       Number(this.state.iso) >= Number(isoAnsArr[0]) &&
       Number(this.state.iso) <= Number(isoAnsArr[2])
     ) {
-      this.setState({ isoanswer: true });
+      this.setState({ isoanswer: true }, () => {
+        console.log("ISO is correct");
+      });
     }
   };
 
+  // Fraction string conversion into arithmetic
   parseFractions(string) {
     let converted = string.split("/");
     return converted[0] / converted[1];
   }
 
+  // Check if current photo has mecessary meta data
   photoCheck = () => {
-    if (
-      this.state.aperture !== null &&
-      this.state.shutterspeed !== null &&
-      this.state.iso !== null
-    ) {
+    if (this.state.aperture && this.state.shutterspeed && this.state.iso) {
       console.log("all good");
     } else {
       console.log("let's try again");
@@ -248,6 +258,7 @@ class PhotoTest extends Component {
     }
   };
 
+  // Get a new photo
   getPhoto = () => {
     axios
       .get(
@@ -257,22 +268,30 @@ class PhotoTest extends Component {
         //   , {params: {count: 10}}
       )
       .then(res => {
-        this.setState({
-          // photos: res.data,
-          imageURL: res.data.urls.regular,
-          htmlURL: res.data.links.html,
-          photographer: res.data.user.name,
-          location: res.data.user.location,
-          shutterspeed: res.data.exif.exposure_time,
-          aperture: res.data.exif.aperture,
-          iso: res.data.exif.iso,
-          isCorrect: false,
-          showanswer: false
-        });
-        this.photoCheck();
+        this.setState(
+          {
+            // photos: res.data,
+            imageURL: res.data.urls.regular,
+            htmlURL: res.data.links.html,
+            photographer: res.data.user.name,
+            location: res.data.user.location,
+            shutterspeed: res.data.exif.exposure_time,
+            aperture: res.data.exif.aperture,
+            iso: res.data.exif.iso,
+            isCorrect: false,
+            fstopanswer: false,
+            shutteranswer: false,
+            isoanswer: false,
+            showanswer: false
+          },
+          () => {
+            this.photoCheck();
+          }
+        );
       })
       .catch(err => console.log(err));
   };
+
 
   fstopChange = e => {
     this.setState({ selectedfstop: e.target.value });
@@ -412,6 +431,7 @@ class PhotoTest extends Component {
               value={this.state.selectedfstop}
               onChange={this.fstopChange}
             >
+            <option>Select One</option>
               {this.state.difficultyfstops.map(fstoprange => (
                 <option key={fstoprange} value={fstoprange}>
                   {fstoprange}
@@ -431,6 +451,7 @@ class PhotoTest extends Component {
               value={this.state.selectedshutter}
               onChange={this.shutterChange}
             >
+            <option>Select One</option>
               {this.state.difficultyshutters.map(shutter => (
                 <option key={shutter} value={shutter}>
                   {shutter}
@@ -447,6 +468,7 @@ class PhotoTest extends Component {
           <div className="isodropdown">
             iso
             <select value={this.state.selectediso} onChange={this.isoChange}>
+            <option>Select One</option>
               {this.state.difficultyisos.map(iso => (
                 <option key={iso} value={iso}>
                   {iso}
