@@ -1,0 +1,36 @@
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+
+.logo-image {
+  box-shadow: 0px 0px 10px 2px #1f2833;
+  background-color: #708090;
+}
+
+.motto {
+    width: 600px;
+    font-size: 20px;
+}
+
+.enter-button {
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    background-color: #708090;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+    line-height: 37px;
+    margin: 15px;
+}
+
+.enter-button:hover {
+    background-color: white;
+    color: #708090;
+    border: 2px solid #708090;
+}
