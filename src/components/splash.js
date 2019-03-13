@@ -6,7 +6,7 @@ const Splash = (props) => {
     return ( 
         <div className="splash-container">
             <img src={splashimage} alt="photoeye logo" className="logo-image"/>
-            <p className="motto">Come train your eye and perfect your craft...</p>
+            <p className="motto">Train your eye and perfect your craft...</p>
             <div className="enter-button" onClick={props.splashButton}>Enter</div>
         </div>
      );

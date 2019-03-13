@@ -1,7 +1,7 @@
 .splash-container {
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center;
 }
 
 .logo-image {
@@ -10,27 +10,29 @@
 }
 
 .motto {
-    width: 600px;
-    font-size: 20px;
+  width: 600px;
+  font-size: 20px;
+  text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000,
+    -1px -1px 0 #000;
 }
 
 .enter-button {
-    width: 100px;
-    height: 40px;
-    font-size: 18px;
-    background-color: #708090;
-    color: white;
-    border: 2px solid white;
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 600;
-    line-height: 37px;
-    margin: 15px;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  background-color: #708090;
+  color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  line-height: 37px;
+  margin: 15px;
 }
 
 .enter-button:hover {
-    background-color: white;
-    color: #708090;
-    border: 2px solid #708090;
+  background-color: white;
+  color: #708090;
+  border: 2px solid #708090;
 }

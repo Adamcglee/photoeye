@@ -2,6 +2,11 @@
   display: flex;
 }
 
+.test-logo-image {
+  max-height: 200px;
+  margin-bottom: -50px;
+}
+
 .photographerInfo {
   display: flex;
   flex-direction: column;
@@ -47,6 +52,7 @@ h5 {
 
 .imagedata {
   display: flex;
+  width: 300px;
   flex-direction: column;
   align-items: flex-start;
 }
@@ -72,6 +78,11 @@ h5 {
   align-items: center;
 }
 
+.answer-right-side {
+  display: flex;
+  justify-content: center;
+}
+
 .dropdown-container {
     padding-bottom: 10px;
 }
@@ -82,9 +93,15 @@ h5 {
 }
 
 .correct {
+  width: 80px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
+}
+
+.answers {
+  width: 380px;
 }
 
 .answer {
@@ -94,9 +111,15 @@ h5 {
 
 .fa-times {
   color: red;
-  margin: 0 10px;
+  text-align: center;
+  line-height: 40px;
+  width: 80px;
 }
 
 .submit-button {
     margin: 15px;
+}
+
+.spaceholder {
+  width: 80px;
 }

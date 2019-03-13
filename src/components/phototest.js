@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import splashimage from "./images/PhotoeyeLogo.png";
 import "./phototest.css";
 
 class PhotoTest extends Component {
@@ -400,149 +401,170 @@ class PhotoTest extends Component {
     console.log("Shutterspeed: ", this.state.shutteranswer);
     console.log("ISO: ", this.state.isoanswer);
     return (
-      <div className="testContainer">
-        <div className="frame">
-          <div className="image">
-            <img src={this.state.imageURL} alt="random photograph" />
-          </div>
+      <div className="container">
+        <div>
+          <img
+            src={splashimage}
+            alt="photoeye logo"
+            className="test-logo-image"
+          />
         </div>
-        <div className="imagedata">
-          <div className="photographerInfo">
-            <h3>
-              <a
-                href={`https://unsplash.com/@${
-                  this.state.username
-                }?utm_source=photoeye&utm_medium=referral`}
-                target="_blank"
-                rel="noopener noreferrer"
+        <div className="testContainer">
+          <div className="frame">
+            <div className="image">
+              <img src={this.state.imageURL} alt="random photograph" />
+            </div>
+          </div>
+          <div className="imagedata">
+            <div className="photographerInfo">
+              <h3>
+                <a
+                  href={`https://unsplash.com/@${
+                    this.state.username
+                  }?utm_source=photoeye&utm_medium=referral`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {this.state.photographer}
+                </a>
+              </h3>
+              <p>
+                Location:{" "}
+                {this.state.location === null ? "Unknown" : this.state.location}
+              </p>
+              <p>
+                Photo from{" "}
+                <a
+                  href="https://unsplash.com/?utm_source=photoeye&utm_medium=referral"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Unsplash
+                </a>
+              </p>
+            </div>
+            <div className="difficultydropdown dropdown">
+              <h5>Difficulty: </h5>
+              <select
+                value={this.state.difficulty}
+                onChange={this.difficultyChange}
               >
-                {this.state.photographer}
-              </a>
-            </h3>
-            <p>Location: {this.state.location === null ? "Unknown" : this.state.location}</p>
-            <p>
-              Photo from{" "}
-              <a
-                href="https://unsplash.com/?utm_source=photoeye&utm_medium=referral"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Unsplash
-              </a>
-            </p>
-          </div>
-          <div className="difficultydropdown dropdown">
-            <h5>Difficulty: </h5>
-            <select
-              value={this.state.difficulty}
-              onChange={this.difficultyChange}
-            >
-              <option>Please Choose</option>
-              <option key="easy" value="easy">
-                Easy
-              </option>
-              <option key="medium" value="medium">
-                Medium
-              </option>
-              <option key="hard" value="hard">
-                Hard
-              </option>
-            </select>
-          </div>
-          <br />
-          <div className="answers">
-            <div className="answerdropdown">
-              <div className="aperturedropdown dropdown">
-                <h5>Aperture: </h5>
-                <div className="dropdown-container">
-                  <select
-                    value={this.state.selectedfstop}
-                    onChange={this.fstopChange}
-                  >
-                    <option>Select One</option>
-                    {this.state.difficultyfstops.map(fstoprange => (
-                      <option key={fstoprange} value={fstoprange}>
-                        {fstoprange}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {this.state.showanswer === false ? null : this.state
-                    .fstopanswer === true ? (
-                  <div className="correct">
-                    <i className="fas fa-check" />
-                    <p className="answer">{this.state.aperture}</p>
+                <option>Please Choose</option>
+                <option key="easy" value="easy">
+                  Easy
+                </option>
+                <option key="medium" value="medium">
+                  Medium
+                </option>
+                <option key="hard" value="hard">
+                  Hard
+                </option>
+              </select>
+            </div>
+            <br />
+            <div className="answers">
+              <div className="answerdropdown">
+                <div className="aperturedropdown dropdown">
+                  <h5>Aperture: </h5>
+                  <div className="answer-right-side">
+                    <div className="dropdown-container">
+                      <select
+                        value={this.state.selectedfstop}
+                        onChange={this.fstopChange}
+                      >
+                        <option>Select One</option>
+                        {this.state.difficultyfstops.map(fstoprange => (
+                          <option key={fstoprange} value={fstoprange}>
+                            {fstoprange}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {this.state.showanswer === false ? (
+                      <div className="spaceholder" />
+                    ) : this.state.fstopanswer === true ? (
+                      <div className="correct">
+                        <i className="fas fa-check" />
+                        <p className="answer">{this.state.aperture}</p>
+                      </div>
+                    ) : (
+                      <i className="fas fa-times" />
+                    )}
                   </div>
-                ) : (
-                  <i className="fas fa-times" />
-                )}
+                </div>
+              </div>
+              <div className="answerdropdown">
+                <div className="shutterropdown dropdown">
+                  <h5>Shutterspeed: </h5>
+                  <div className="answer-right-side">
+                    <div className="dropdown-container">
+                      <select
+                        value={this.state.selectedshutter}
+                        onChange={this.shutterChange}
+                      >
+                        <option>Select One</option>
+                        {this.state.difficultyshutters.map(shutter => (
+                          <option key={shutter} value={shutter}>
+                            {shutter}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {this.state.showanswer === false ? (
+                      <div className="spaceholder" />
+                    ) : this.state.shutteranswer === true ? (
+                      <div className="correct">
+                        <i className="fas fa-check" />
+                        <p className="answer">{this.state.shutterspeed}</p>
+                      </div>
+                    ) : (
+                      <i className="fas fa-times" />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="answerdropdown">
+                <div className="isodropdown dropdown">
+                  <h5>ISO: </h5>
+                  <div className="answer-right-side">
+                    <div className="dropdown-container">
+                      <select
+                        value={this.state.selectediso}
+                        onChange={this.isoChange}
+                      >
+                        <option>Select One</option>
+                        {this.state.difficultyisos.map(iso => (
+                          <option key={iso} value={iso}>
+                            {iso}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    {this.state.showanswer === false ? (
+                      <div className="spaceholder" />
+                    ) : this.state.isoanswer === true ? (
+                      <div className="correct">
+                        <i className="fas fa-check" />
+                        <p className="answer">{this.state.iso}</p>
+                      </div>
+                    ) : (
+                      <i className="fas fa-times" />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="answerdropdown">
-              <div className="shutterropdown dropdown">
-                <h5>Shutterspeed: </h5>
-                <div className="dropdown-container">
-                  <select
-                    value={this.state.selectedshutter}
-                    onChange={this.shutterChange}
-                  >
-                    <option>Select One</option>
-                    {this.state.difficultyshutters.map(shutter => (
-                      <option key={shutter} value={shutter}>
-                        {shutter}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {this.state.showanswer === false ? null : this.state
-                    .shutteranswer === true ? (
-                  <div className="correct">
-                    <i className="fas fa-check" />
-                    <p className="answer">{this.state.shutterspeed}</p>
-                  </div>
-                ) : (
-                  <i className="fas fa-times" />
-                )}
-              </div>
+            <div>
+              {this.state.isCorrect === false ? (
+                <button className="submit-button" onClick={this.checkAnswer}>
+                  Submit
+                </button>
+              ) : (
+                <button className="submit-button" onClick={this.getPhoto}>
+                  Next
+                </button>
+              )}
             </div>
-            <div className="answerdropdown">
-              <div className="isodropdown dropdown">
-                <h5>ISO: </h5>
-                <div className="dropdown-container">
-                  <select
-                    value={this.state.selectediso}
-                    onChange={this.isoChange}
-                  >
-                    <option>Select One</option>
-                    {this.state.difficultyisos.map(iso => (
-                      <option key={iso} value={iso}>
-                        {iso}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {this.state.showanswer === false ? null : this.state
-                    .isoanswer === true ? (
-                  <div className="correct">
-                    <i className="fas fa-check" />
-                    <p className="answer">{this.state.iso}</p>
-                  </div>
-                ) : (
-                  <i className="fas fa-times" />
-                )}
-              </div>
-            </div>
-          </div>
-          <div>
-            {this.state.isCorrect === false ? (
-              <button className="submit-button" onClick={this.checkAnswer}>
-                Submit
-              </button>
-            ) : (
-              <button className="submit-button" onClick={this.getPhoto}>
-                Next
-              </button>
-            )}
           </div>
         </div>
       </div>
