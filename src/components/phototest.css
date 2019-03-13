@@ -1,40 +1,102 @@
 .testContainer {
-    display: flex;
-
+  display: flex;
 }
 
 .photographerInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 15px;
 }
 
 p {
-    font-size: 14px;
-    margin: 0;
+  font-size: 14px;
+  margin: 0;
 }
 
-img{
-    max-height: 600px;
-    max-width: 600px;
+a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+a:hover {
+  text-shadow: 1px 1px 2px #66fcf1, 0 0 25px #1f2833, 0 0 5px #484848;
+}
+
+.frame {
+  border: 10px solid #000000;
+  margin: 25px;
+}
+
+.image {    
+  max-height: 600px;
+  max-width: 600px;
+  border: 5px double #ffffff;
+  position: relative;
+}
+
+img {
+  max-height: 600px;
+  max-width: 600px;
+}
+
+h5 {
+  margin: 0 15px;
 }
 
 .imagedata {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.testinputs {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.difficultydropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.answerdropdown {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dropdown {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-container {
+    padding-bottom: 10px;
 }
 
 .fa-check {
-    color: #00e500;
+  color: #00e500;
+  margin: 0 10px;
+}
+
+.correct {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.answer {
+  color: #00e500;
+  font-weight: 600;
 }
 
 .fa-times {
-    color: red;
+  color: red;
+  margin: 0 10px;
+}
+
+.submit-button {
+    margin: 15px;
 }
