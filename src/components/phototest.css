@@ -14,9 +14,14 @@
   margin: 15px;
 }
 
+.motto {
+  text-align: center;
+}
+
 p {
   font-size: 14px;
   margin: 0;
+  text-align: left;
 }
 
 a {
@@ -29,21 +34,15 @@ a:hover {
   text-shadow: 1px 1px 2px #66fcf1, 0 0 25px #1f2833, 0 0 5px #484848;
 }
 
-.frame {
-  border: 10px solid #000000;
-  margin: 25px;
-}
-
-.image {    
-  max-height: 600px;
-  max-width: 600px;
-  border: 5px double #ffffff;
-  position: relative;
-}
-
 img {
   max-height: 600px;
   max-width: 600px;
+  margin: 20px 0;
+}
+
+.test-image {
+  border: 5px double #ffffff;
+  outline: 10px solid black;
 }
 
 h5 {
@@ -84,7 +83,7 @@ h5 {
 }
 
 .dropdown-container {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .fa-check {
@@ -117,9 +116,64 @@ h5 {
 }
 
 .submit-button {
-    margin: 15px;
+  margin: 15px;
 }
 
 .spaceholder {
   width: 80px;
+}
+
+@media (max-width: 1200px) {
+  .photographerInfo {
+    margin: 0;
+  }
+
+  h5 {
+    margin: 0;
+  }
+
+  .imagedata {
+    width: 250px;
+  }
+
+  .dropdown {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .dropdown-container {
+    padding-bottom: 5px;
+  }
+
+  .answer-right-side {
+    justify-content: space-between;
+  }
+
+  .answers {
+    width: 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .testContainer {
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .photographerInfo {
+    width: 275px;
+    justify-content: center;
+  }
+
+  .imagedata {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+  }
+
+  .dropdown {
+    width: 150px;
+  }
 }

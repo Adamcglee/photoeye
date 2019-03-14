@@ -412,7 +412,7 @@ class PhotoTest extends Component {
         <div className="testContainer">
           <div className="frame">
             <div className="image">
-              <img src={this.state.imageURL} alt="random photograph" />
+              <img src={this.state.imageURL} alt="random photograph" className="test-image"/>
             </div>
           </div>
           <div className="imagedata">
