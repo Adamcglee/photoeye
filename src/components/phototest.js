@@ -402,7 +402,7 @@ class PhotoTest extends Component {
     console.log("ISO: ", this.state.isoanswer);
     return (
       <div className="container">
-        <div>
+        <div className="img-container">
           <img
             src={splashimage}
             alt="photoeye logo"
@@ -554,7 +554,7 @@ class PhotoTest extends Component {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="btn">
               {this.state.isCorrect === false ? (
                 <button className="submit-button" onClick={this.checkAnswer}>
                   Submit

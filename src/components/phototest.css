@@ -1,5 +1,10 @@
+.img-container {
+  order: 1;
+}
+
 .testContainer {
   display: flex;
+  order: 2;
 }
 
 .test-logo-image {
@@ -54,6 +59,7 @@ h5 {
   width: 300px;
   flex-direction: column;
   align-items: flex-start;
+  margin: 0 20px;
 }
 
 .difficultydropdown {
@@ -136,6 +142,10 @@ h5 {
     width: 250px;
   }
 
+  img{
+    margin: 20px 50px;
+  }
+
   .dropdown {
     flex-direction: column;
     justify-content: space-between;
@@ -156,9 +166,14 @@ h5 {
 }
 
 @media (max-width: 1024px) {
+  .img-container {
+    order: 2;
+  }
+
   .testContainer {
     flex-direction: column;
-    align-content: center;
+    align-content: center;    
+    order: 1;
   }
 
   .photographerInfo {
@@ -175,5 +190,9 @@ h5 {
 
   .dropdown {
     width: 150px;
+  }
+
+  h3{
+    margin: 0;
   }
 }
