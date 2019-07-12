@@ -14,6 +14,26 @@
 .motto {
   width: 600px;
   font-size: 20px;
+  text-align: center;
+}
+
+.text-description {
+  width: 600px;
+  margin: 15px 0;
+}
+
+.splash-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-info {
+  margin: 10px 0;
+}
+
+.splash-link {
+  margin: 0 10px;
 }
 
 .enter-button {
@@ -28,7 +48,7 @@
   text-align: center;
   font-weight: 600;
   line-height: 37px;
-  margin: 15px;
+  margin: 150px 15px 15px 15px;
 }
 
 .enter-button:hover {

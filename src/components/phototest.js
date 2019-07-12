@@ -8,7 +8,7 @@ class PhotoTest extends Component {
     super(props);
     this.state = {
       photos: [],
-      difficulty: "null",
+      difficulty: "easy",
       imageURL: "",
       htmlURL: "",
       photographer: "",
@@ -449,7 +449,7 @@ class PhotoTest extends Component {
                 value={this.state.difficulty}
                 onChange={this.difficultyChange}
               >
-                <option>Please Choose</option>
+                {/* <option>Please Choose</option> */}
                 <option key="easy" value="easy">
                   Easy
                 </option>
