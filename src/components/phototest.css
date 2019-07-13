@@ -85,10 +85,9 @@ h5 {
 
 .imagedata {
   display: flex;
-  width: 300px;
+  width: 375px;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 20px;
 }
 
 .difficultydropdown {
@@ -136,7 +135,7 @@ h5 {
 }
 
 .answers {
-  width: 350px;
+  width: 100%;
 }
 
 .answer {
