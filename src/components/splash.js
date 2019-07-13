@@ -28,6 +28,9 @@ const Splash = props => {
         <h6 className="project-info">
           This Project: <a href="https://github.com/Adamcglee/photoeye">Repo</a>
         </h6>
+        <h6 className="project-info">
+          Email: <a href="mailto:adamcglee@gmail.com">adamcglee@gmail.com</a>
+        </h6>
         <div className="project-info">
           <a className="splash-link" href="https://github.com/Adamcglee">
             <i className="fab fa-github" />
