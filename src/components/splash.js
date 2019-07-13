@@ -19,14 +19,15 @@ const Splash = props => {
       </div>
       <div className="splash-info">
         <h5 className="project-info">
-          By: <a href="https://adamlee.dev">Adam Lee</a>
+          By:{" "}
+          <a classname="splash-link" href="https://adamlee.dev">
+            Adam Lee
+          </a>
         </h5>
-        <p className="project-info">
-          <p>
-            This Project:{" "}
-            <a href="https://github.com/Adamcglee/photoeye">Repo</a>
-          </p>
-        </p>
+
+        <h6 className="project-info">
+          This Project: <a href="https://github.com/Adamcglee/photoeye">Repo</a>
+        </h6>
         <div className="project-info">
           <a className="splash-link" href="https://github.com/Adamcglee">
             <i className="fab fa-github" />

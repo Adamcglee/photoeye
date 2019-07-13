@@ -11,6 +11,8 @@ class PhotoTest extends Component {
     super(props);
     this.state = {
       photos: [],
+      recordright: 0,
+      recordall: 0,
       difficulty: "Select Difficulty",
       imageURL: "",
       htmlURL: "",
@@ -426,7 +428,8 @@ class PhotoTest extends Component {
           <div className="testContainer">
             <div className="imagedata">
               <div className="photographerInfo">
-                <h3>
+                <p className="details-text">Photographer:</p>
+                <h3 className="photographer-details">
                   <a
                     href={`https://unsplash.com/@${
                       this.state.username
@@ -437,41 +440,24 @@ class PhotoTest extends Component {
                     {this.state.photographer}
                   </a>
                 </h3>
-                <p>
-                  Location:{" "}
-                  {this.state.location === null
+                <p className="details-text">
+                  Location:{" "} <h4 className="photographer-details">{this.state.location === null
                     ? "Unknown"
-                    : this.state.location}
+                    : this.state.location}</h4>
+                  
                 </p>
-                <p>
-                  Photo from{" "}
+                <p className="details-text">
+                  Photo courtesy of:{" "}
                   <a
                     href="https://unsplash.com/?utm_source=photoeye&utm_Medium=referral"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="photographer-details"
                   >
                     Unsplash
                   </a>
                 </p>
               </div>
-              {/* <div className="difficultydropdown dropdown">
-                <h5>Difficulty: </h5>
-                <select
-                  value={this.state.difficulty}
-                  onChange={this.difficultyChange}
-                >
-                  <option>Please Choose</option>
-                  <option key="Easy" value="Easy">
-                    Easy
-                  </option>
-                  <option key="Medium" value="Medium">
-                    Medium
-                  </option>
-                  <option key="Hard" value="Hard">
-                    Hard
-                  </option>
-                </select>
-              </div> */}
               <DropdownButton
                 id="dropdown-basic-button"
                 variant="info"
@@ -491,23 +477,24 @@ class PhotoTest extends Component {
               <div className="answers">
                 <div className="answerdropdown">
                   <div className="aperturedropdown dropdown">
-                    <h5>Aperture: </h5>
+                    <h5 className="answer-prompt">Aperture: </h5>
+                    {this.state.showanswer === true &&
+                    this.state.fstopanswer === true ? (
+                      <div className="correct">
+                        <p className="answer">{this.state.aperture}</p>
+                      </div>
+                    ) : null}
                     <div className="answer-right-side">
                       <div className="dropdown-container">
-                        {/* <select
-                          value={this.state.selectedfstop}
-                          onChange={this.fstopChange}
-                        >
-                          <option>Select One</option>
-                          {this.state.difficultyfstops.map(fstoprange => (
-                            <option key={fstoprange} value={fstoprange}>
-                              {fstoprange}
-                            </option>
-                          ))}
-                        </select> */}
                         <DropdownButton
                           id="dropdown-basic-button"
-                          variant="info"
+                          variant={
+                            this.state.showanswer === false
+                              ? "info"
+                              : this.state.fstopanswer === true
+                              ? "success"
+                              : "danger"
+                          }
                           title={this.state.selectedfstop}
                         >
                           {this.state.difficultyfstops.map(fstoprange => (
@@ -517,38 +504,29 @@ class PhotoTest extends Component {
                           ))}
                         </DropdownButton>
                       </div>
-                      {this.state.showanswer === false ? (
-                        <div className="spaceholder" />
-                      ) : this.state.fstopanswer === true ? (
-                        <div className="correct">
-                          <i className="fas fa-check" />
-                          <p className="answer">{this.state.aperture}</p>
-                        </div>
-                      ) : (
-                        <i className="fas fa-times" />
-                      )}
                     </div>
                   </div>
                 </div>
                 <div className="answerdropdown">
                   <div className="shutterropdown dropdown">
-                    <h5>Shutterspeed: </h5>
+                    <h5 className="answer-prompt">Shutterspeed: </h5>
+                    {this.state.showanswer === true &&
+                    this.state.shutteranswer === true ? (
+                      <div className="correct">
+                        <p className="answer">{this.state.shutterspeed}</p>
+                      </div>
+                    ) : null}
                     <div className="answer-right-side">
                       <div className="dropdown-container">
-                        {/* <select
-                          value={this.state.selectedshutter}
-                          onChange={this.shutterChange}
-                        >
-                          <option>Select One</option>
-                          {this.state.difficultyshutters.map(shutter => (
-                            <option key={shutter} value={shutter}>
-                              {shutter}
-                            </option>
-                          ))}
-                        </select> */}
                         <DropdownButton
                           id="dropdown-basic-button"
-                          variant="info"
+                          variant={
+                            this.state.showanswer === false
+                              ? "info"
+                              : this.state.shutteranswer === true
+                              ? "success"
+                              : "danger"
+                          }
                           title={this.state.selectedshutter}
                         >
                           {this.state.difficultyshutters.map(shutter => (
@@ -558,38 +536,29 @@ class PhotoTest extends Component {
                           ))}
                         </DropdownButton>
                       </div>
-                      {this.state.showanswer === false ? (
-                        <div className="spaceholder" />
-                      ) : this.state.shutteranswer === true ? (
-                        <div className="correct">
-                          <i className="fas fa-check" />
-                          <p className="answer">{this.state.shutterspeed}</p>
-                        </div>
-                      ) : (
-                        <i className="fas fa-times" />
-                      )}
                     </div>
                   </div>
                 </div>
                 <div className="answerdropdown">
                   <div className="isodropdown dropdown">
-                    <h5>ISO: </h5>
+                    <h5 className="answer-prompt">ISO: </h5>
+                    {this.state.showanswer === true &&
+                    this.state.isoanswer === true ? (
+                      <div className="correct">
+                        <p className="answer">{this.state.iso}</p>
+                      </div>
+                    ) : null}
                     <div className="answer-right-side">
                       <div className="dropdown-container">
-                        {/* <select
-                          value={this.state.selectediso}
-                          onChange={this.isoChange}
-                        >
-                          <option>Select One</option>
-                          {this.state.difficultyisos.map(iso => (
-                            <option key={iso} value={iso}>
-                              {iso}
-                            </option>
-                          ))}
-                        </select> */}
                         <DropdownButton
                           id="dropdown-basic-button"
-                          variant="info"
+                          variant={
+                            this.state.showanswer === false
+                              ? "info"
+                              : this.state.isoanswer === true
+                              ? "success"
+                              : "danger"
+                          }
                           title={this.state.selectediso}
                         >
                           {this.state.difficultyisos.map(iso => (
@@ -599,27 +568,25 @@ class PhotoTest extends Component {
                           ))}
                         </DropdownButton>
                       </div>
-                      {this.state.showanswer === false ? (
-                        <div className="spaceholder" />
-                      ) : this.state.isoanswer === true ? (
-                        <div className="correct">
-                          <i className="fas fa-check" />
-                          <p className="answer">{this.state.iso}</p>
-                        </div>
-                      ) : (
-                        <i className="fas fa-times" />
-                      )}
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="btn">
+              <div className="submit-button-container">
                 {this.state.isCorrect === false ? (
-                  <Button variant="primary" className="submit-button" onClick={this.checkAnswer}>
+                  <Button
+                    variant="primary"
+                    className="submit-button"
+                    onClick={this.checkAnswer}
+                  >
                     Submit
                   </Button>
                 ) : (
-                  <Button variant="success" className="submit-button" onClick={this.getPhoto}>
+                  <Button
+                    variant="success"
+                    className="submit-button"
+                    onClick={this.getPhoto}
+                  >
                     Next
                   </Button>
                 )}

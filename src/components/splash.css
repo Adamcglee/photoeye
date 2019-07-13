@@ -29,11 +29,14 @@
 }
 
 .project-info {
+  font-family: "Poiret One", cursive !important;
+  font-weight: 700;
   margin: 10px 0;
 }
 
 .splash-link {
   margin: 0 10px;
+  color: inherit;
 }
 
 .enter-button {
