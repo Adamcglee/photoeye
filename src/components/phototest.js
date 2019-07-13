@@ -509,7 +509,7 @@ class PhotoTest extends Component {
                 </div>
                 <div className="answerdropdown">
                   <div className="shutterropdown dropdown">
-                    <h5 className="answer-prompt">Shutterspeed: </h5>
+                    <h5 className="answer-prompt">Shutter Speed: </h5>
                     {this.state.showanswer === true &&
                     this.state.shutteranswer === true ? (
                       <div className="correct">
