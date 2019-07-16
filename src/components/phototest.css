@@ -31,9 +31,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 15px 0;
+  padding: 10px;
+  width: 100%;
+  margin: 20px 0;
   font-family: 'Poiret One', cursive;
   font-weight: 700 !important;
+  border: 1px solid black;
 }
 
 .photographer-details {
@@ -136,6 +139,8 @@ h5 {
 
 .answers {
   width: 100%;
+  border: 1px solid black;
+  padding: 10px 10px 0 10px;
 }
 
 .answer {
@@ -162,9 +167,6 @@ h5 {
 
 
 @media (max-width: 1200px) {
-  .photographerInfo {
-    margin: 0;
-  }
 
   h5 {
     margin: 0;
@@ -192,8 +194,10 @@ h5 {
     justify-content: space-between;
   }
 
-  .answers {
-    width: 200px;
+  .submit-button-container {
+    width: 250px;
+    display: flex;
+    justify-content: flex-start;
   }
 }
 

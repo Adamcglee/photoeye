@@ -458,6 +458,7 @@ class PhotoTest extends Component {
                   </a>
                 </p>
               </div>
+              <p className="answer-prompt">Difficulty: </p> 
               <DropdownButton
                 id="dropdown-basic-button"
                 variant="info"
