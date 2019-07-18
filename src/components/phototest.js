@@ -458,24 +458,25 @@ class PhotoTest extends Component {
                   </a>
                 </p>
               </div>
-              <p className="answer-prompt">Difficulty: </p> 
-              <DropdownButton
-                id="dropdown-basic-button"
-                variant="info"
-                title={this.state.difficulty}
-              >
-                <Dropdown.Item onClick={this.difficultyChange}>
-                  Easy
-                </Dropdown.Item>
-                <Dropdown.Item onClick={this.difficultyChange}>
-                  Medium
-                </Dropdown.Item>
-                <Dropdown.Item onClick={this.difficultyChange}>
-                  Hard
-                </Dropdown.Item>
-              </DropdownButton>
-              <br />
               <div className="answers">
+                <div>
+                  <p className="answer-prompt">Difficulty: </p> 
+                  <DropdownButton
+                    id="dropdown-basic-button"
+                    variant="info"
+                    title={this.state.difficulty}
+                  >
+                    <Dropdown.Item onClick={this.difficultyChange}>
+                      Easy
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={this.difficultyChange}>
+                      Medium
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={this.difficultyChange}>
+                      Hard
+                    </Dropdown.Item>
+                  </DropdownButton>
+                </div>
                 <div className="answerdropdown">
                   <div className="aperturedropdown dropdown">
                     <h5 className="answer-prompt">Aperture: </h5>

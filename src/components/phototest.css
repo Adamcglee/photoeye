@@ -36,7 +36,6 @@
   margin: 20px 0;
   font-family: 'Poiret One', cursive;
   font-weight: 700 !important;
-  border: 1px solid black;
 }
 
 .photographer-details {
@@ -139,7 +138,6 @@ h5 {
 
 .answers {
   width: 100%;
-  border: 1px solid black;
   padding: 10px 10px 0 10px;
 }
 
@@ -159,6 +157,7 @@ h5 {
   width: 375px;
   display: flex;
   justify-content: flex-end;
+  padding-right: 10px;
 }
 
 .submit-button {
